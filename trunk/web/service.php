@@ -7,7 +7,7 @@ exit();
 require_once ("include/db_info.inc.php");
 require_once ("include/my_func.inc.php");
 $OJ_NAME.="_service_";
-ini_set("display_errors", "Off");  //set this to "On" for debugging  ,especially when no reason blank shows up.
+ini_set("display_errors"， "Off");  //set this to "On" for debugging  ,especially when no reason blank shows up.
 function login($m){
                 // 拥有service_port权限的账号才能登陆接口
                 global $OJ_NAME,$_SESSION;
@@ -15,7 +15,7 @@ function login($m){
                 $result=pdo_query($sql,$m->user_id);
                 if(is_array($result)&&count($result)==1){
                         $row = $result[0];
-                        if( pwCheck($m->password,$row['password'])){
+                        if( pwCheck(md5($m->password),$row['password'])){
                                 $sql="select * from privilege where rightstr=? and user_id=? ";
                                 $result=pdo_query($sql,"service_port",$m->user_id);
                                 if(is_array($result)&&count($result)>0){
